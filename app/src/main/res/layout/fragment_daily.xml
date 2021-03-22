@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Daily">
+
+    <RelativeLayout
+        android:id="@+id/dailysteps"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:background="@color/pink3"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/imie"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text="Imię : "
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/imie2"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="120dp"
+            android:layout_toEndOf="@+id/imie"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+
+        <TextView
+            android:id="@+id/wiek"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imie"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text="Wiek : "
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/wiek2"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_below="@id/imie2"
+            android:layout_marginEnd="120dp"
+            android:layout_toEndOf="@+id/wiek"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/wzrost"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wiek"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text="Wzrost : "
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/wzrost2"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="120dp"
+            android:layout_below="@id/wiek2"
+            android:layout_toEndOf="@+id/wzrost"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="50dp"
+            android:height="20dp"
+            android:text="Dodaj" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/representer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="155dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:background="@color/pink3"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/last_two"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:text="Last Two Weeks"/>
+
+        <LinearLayout
+            android:id="@+id/dateorder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/last_two"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textAlignment="textEnd"
+                android:gravity="end"
+                android:text="Date Order " />
+
+            <ImageView
+                android:id="@+id/updownimage"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:src="@android:drawable/arrow_down_float"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="20dp"
+        app:fabSize="auto"
+        app:srcCompat="@android:drawable/ic_menu_help"
+        />
+</FrameLayout>

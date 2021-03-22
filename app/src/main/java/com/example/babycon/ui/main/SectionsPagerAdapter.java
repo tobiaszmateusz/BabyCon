@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.babycon.Daily;
+import com.example.babycon.Notatki;
 import com.example.babycon.R;
+import com.example.babycon.Szczepienia;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -29,8 +32,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        switch (position) {
+            case 0:
+                return new Daily();
+            case 1:
+                return new Szczepienia();
+            case 3:
+                return new Notatki();
+            default:
+                return new PlaceholderFragment();
+        }
     }
+
+
 
     @Nullable
     @Override
