@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ public class Daily extends Fragment {
     TextView mHeight;
     LinearLayout mLinearLayout;
     RecyclerView mRecyclerView;
+    Button dodaj;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +84,15 @@ public class Daily extends Fragment {
                 Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
+            }
+        });
+
+        dodaj = getView().findViewById(R.id.dodaj);
+        dodaj.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getContext(), PopActivity.class);
+                startActivity(intent);
             }
         });
 

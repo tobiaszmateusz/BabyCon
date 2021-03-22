@@ -22,4 +22,10 @@
     <style name="Theme.BabyCon.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.BabyCon.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.BabyCon.PopMe">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+
+    </style>
 </resources>
