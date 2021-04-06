@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "536216896139-mn1mns2sp8mo6n7j9gnhs1pggvpmjb64.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.babycon",
+            "certificate_hash": "270c2e06ad006eaceded04d231cde162e31a37fd"
+          }
+        },
+        {
           "client_id": "536216896139-t0kj9f4tieudve25bgqvkpqtfva2osrr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

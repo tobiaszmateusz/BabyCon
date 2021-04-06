@@ -1,12 +1,15 @@
 package com.example.babycon;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +40,10 @@ public class Szczepienia extends Fragment {
      * @return A new instance of fragment Szczepienia.
      */
     // TODO: Rename and change types and number of parameters
+
+    Button szczegoly;
+
+
     public static Szczepienia newInstance(String param1, String param2) {
         Szczepienia fragment = new Szczepienia();
         Bundle args = new Bundle();
@@ -54,11 +61,25 @@ public class Szczepienia extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        szczegoly = getView().findViewById(R.id.szczepieniaszczeg);
+        szczegoly.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getContext(), Szczegoly.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_szczepienia, container, false);
+
     }
 }
