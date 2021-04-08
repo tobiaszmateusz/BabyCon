@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,14 +17,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
 
+import com.example.babycon.model.BasicModel;
+import com.example.babycon.model.SzczepieniaLista;
+import com.example.babycon.model.SzczepieniaListaAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Daily extends Fragment {
@@ -34,9 +39,10 @@ public class Daily extends Fragment {
     TextView mName ;
     TextView mAge;
     TextView mHeight;
-    LinearLayout mLinearLayout;
+    TextView mSortowanie;
     RecyclerView mRecyclerView;
     Button dodaj;
+
 
 
     @Override
@@ -56,12 +62,12 @@ public class Daily extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mWeekAscOrDesc = (ImageView) getView().findViewById(R.id.updownimage);
-        mLinearLayout = (LinearLayout) getView().findViewById(R.id.dateorder);
+        mSortowanie = getView().findViewById(R.id.sortowanie);
         mName = (TextView) getView().findViewById(R.id.imie2);
         mAge = (TextView) getView().findViewById(R.id.wiek2);
         mHeight = (TextView) getView().findViewById(R.id.wzrost2);
 
-        mLinearLayout.setOnClickListener(new View.OnClickListener() {
+        mSortowanie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isReverse) {
@@ -96,6 +102,23 @@ public class Daily extends Fragment {
         });
 
         setData();
+
+
+        ArrayList<SzczepieniaLista> szczepienia = new ArrayList<SzczepieniaLista>();
+        szczepienia.add(new SzczepieniaLista("aaa", "1.6", R.drawable.ic_baseline_help_24));
+        szczepienia.add(new SzczepieniaLista("bbb", "2.0-2.1", R.drawable.ic_baseline_help_24));
+        szczepienia.add(new SzczepieniaLista("ccc", "2.2-2.2.3", R.drawable.ic_baseline_help_24));
+        szczepienia.add(new SzczepieniaLista("ddd", "2.3-2.3.7", R.drawable.ic_baseline_help_24));
+
+
+        // Create an {@link AndroidFlavorAdapter}, whose data source is a list of
+        // {@link AndroidFlavor}s. The adapter knows how to create list item views for each item
+        // in the list.
+        SzczepieniaListaAdapter szczepieniaAdapter = new SzczepieniaListaAdapter(getActivity(), szczepienia);
+
+        // Get a reference to the ListView, and attach the adapter to the listView.
+        ListView listView = view.findViewById(R.id.listview_wpisy);
+        listView.setAdapter(szczepieniaAdapter);
     }
 
 

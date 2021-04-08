@@ -1,5 +1,6 @@
 package com.example.babycon;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+
+import com.example.babycon.model.SzczepieniaLista;
+import com.example.babycon.model.SzczepieniaListaAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +50,6 @@ public class Szczepienia extends Fragment {
 
     Button szczegoly;
 
-
     public static Szczepienia newInstance(String param1, String param2) {
         Szczepienia fragment = new Szczepienia();
         Bundle args = new Bundle();
@@ -60,6 +66,7 @@ public class Szczepienia extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
@@ -71,15 +78,31 @@ public class Szczepienia extends Fragment {
                 startActivity(intent);
             }
         });
-
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view  = inflater.inflate(R.layout.fragment_szczepienia, container, false);
+        // Create an ArrayList of AndroidFlavor objects
+        ArrayList<SzczepieniaLista> szczepienia = new ArrayList<SzczepieniaLista>();
+        szczepienia.add(new SzczepieniaLista("aaa", "1.6", R.drawable.ic_baseline_help_24));
+        szczepienia.add(new SzczepieniaLista("bbb", "2.0-2.1", R.drawable.ic_baseline_help_24));
+        szczepienia.add(new SzczepieniaLista("ccc", "2.2-2.2.3", R.drawable.ic_baseline_help_24));
+        szczepienia.add(new SzczepieniaLista("ddd", "2.3-2.3.7", R.drawable.ic_baseline_help_24));
+
+
+        // Create an {@link AndroidFlavorAdapter}, whose data source is a list of
+        // {@link AndroidFlavor}s. The adapter knows how to create list item views for each item
+        // in the list.
+        SzczepieniaListaAdapter szczepieniaAdapter = new SzczepieniaListaAdapter(getActivity(), szczepienia);
+
+        // Get a reference to the ListView, and attach the adapter to the listView.
+        ListView listView = view.findViewById(R.id.listview_szczepienia2);
+        listView.setAdapter(szczepieniaAdapter);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_szczepienia, container, false);
+        return view;
 
     }
 }
