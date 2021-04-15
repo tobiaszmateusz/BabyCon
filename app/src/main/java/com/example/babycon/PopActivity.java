@@ -11,8 +11,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 
-public class PopActivity extends Activity {
+public class PopActivity extends FragmentActivity {
 
     Button dodaj;
     Button wyjdz;

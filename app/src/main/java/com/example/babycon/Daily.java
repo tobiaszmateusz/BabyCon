@@ -65,7 +65,6 @@ public class Daily extends Fragment {
         mSortowanie = getView().findViewById(R.id.sortowanie);
         mName = (TextView) getView().findViewById(R.id.imie2);
         mAge = (TextView) getView().findViewById(R.id.wiek2);
-        mHeight = (TextView) getView().findViewById(R.id.wzrost2);
 
         mSortowanie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +124,5 @@ public class Daily extends Fragment {
     public void setData() {
         mName.setText("Jakub");
         mAge.setText("20 miesięcy");
-        mHeight.setText("100 cm");
     }
 }

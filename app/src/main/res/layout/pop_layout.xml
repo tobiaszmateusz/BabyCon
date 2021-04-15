@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/pop_up"
+    android:background="@drawable/shape"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="35dp"
             android:layout_marginBottom="35dp"
-            android:background="@color/pink2"
+            android:background="@drawable/shape2"
             android:textColor="@color/white"
             android:text="Dodaj" />
 
@@ -32,8 +32,134 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="35dp"
             android:layout_marginBottom="35dp"
-            android:background="@color/pink2"
+            android:background="@drawable/shape2"
             android:text="Wyjdź" />
+
+        <TextView
+            android:id="@+id/obwodglowy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:padding="5dp"
+            android:text="Obwód głowy : "
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/obwodglowy2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:inputType="number"
+            android:layout_toEndOf="@+id/obwodglowy"
+            android:layout_marginTop="50dp"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/obwodglowy"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/obwodklatki"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/obwodglowy"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text="Obwód klatki : "
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/obwodglowy" />
+
+        <EditText
+            android:id="@+id/obwodklatki2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/obwodglowy2"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/obwodklatki"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:inputType="number"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/obwodklatki"
+            app:layout_constraintTop_toBottomOf="@+id/obwodglowy2" />
+
+        <TextView
+            android:id="@+id/obwodtulowia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/obwodklatki"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text="Obwód tułowia : "
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/obwodklatki" />
+
+        <EditText
+            android:id="@+id/obwodtulowia2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/obwodklatki2"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/obwodtulowia"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text=""
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/obwodtulowia"
+            app:layout_constraintTop_toBottomOf="@+id/obwodklatki2" />
+
+        <EditText
+            android:id="@+id/notatnik"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/shape"
+            android:layout_below="@+id/obwodtulowia"
+            android:layout_marginTop="8dp"
+            android:hint="Notatka"
+            android:textColorHint="#FFFFFF" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

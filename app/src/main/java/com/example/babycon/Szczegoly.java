@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class Szczegoly extends AppCompatActivity {
+public class Szczegoly extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
