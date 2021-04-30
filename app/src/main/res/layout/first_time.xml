@@ -13,9 +13,21 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@drawable/pink_button"
-        android:text="Rejestruj"
+        android:text="Zarejestruj Dziecko"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:text="Hej na Twoim koncie nie ma jeszcze dodanej o żadnym z Twoich dzieci"
+        app:layout_constraintBottom_toTopOf="@+id/rejestruj"
+        android:textSize="25dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
