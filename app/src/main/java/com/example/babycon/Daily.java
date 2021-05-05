@@ -2,9 +2,12 @@ package com.example.babycon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ComponentActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -26,8 +29,15 @@ import com.example.babycon.model.SzczepieniaListaAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class Daily extends Fragment {
@@ -44,12 +54,37 @@ public class Daily extends Fragment {
     Button dodaj;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_daily, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_daily, container, false);
+
+        mName = (TextView)rootView.findViewById(R.id.imie2);
+        mAge = (TextView)rootView.findViewById(R.id.wiek2);
+        MainActivity activity = (MainActivity)getActivity();
+        Bundle results = activity.getMyData();
+        String imie = results.getString("danedziecka");
+        String dataUrodzenia = results.getString("dataurodzenia");
+
+
+        java.util.Date date1 = new java.util.Date();
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy"); // here set the pattern as you date in string was containing like date/month/year
+            Date d = sdf.parse(dataUrodzenia);
+        }catch(ParseException ex){
+            // handle parsing exception if date string was different from the pattern applying into the SimpleDateFormat contructor
+        }
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yy");
+        String currentDateandTime = sdf2.format(new Date());
+        int dateDifference = (int) getDateDiff(new SimpleDateFormat("dd/MM/yy"), dataUrodzenia, currentDateandTime);
+
+
+        mName.setText(imie);
+        mAge.setText(dateDifference+ " dni");
+
+        return rootView;
     }
 
     private LinearLayoutManager getReverseManager(){
@@ -63,8 +98,6 @@ public class Daily extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mWeekAscOrDesc = (ImageView) getView().findViewById(R.id.updownimage);
         mSortowanie = getView().findViewById(R.id.sortowanie);
-        mName = (TextView) getView().findViewById(R.id.imie2);
-        mAge = (TextView) getView().findViewById(R.id.wiek2);
 
         mSortowanie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +133,7 @@ public class Daily extends Fragment {
             }
         });
 
-        setData();
+/*        setData();*/
 
 
         ArrayList<SzczepieniaLista> szczepienia = new ArrayList<SzczepieniaLista>();
@@ -124,5 +157,14 @@ public class Daily extends Fragment {
     public void setData() {
         mName.setText("Jakub");
         mAge.setText("20 miesięcy");
+    }
+
+    public static long getDateDiff(SimpleDateFormat format, String oldDate, String newDate) {
+        try {
+            return TimeUnit.DAYS.convert(format.parse(newDate).getTime() - format.parse(oldDate).getTime(), TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

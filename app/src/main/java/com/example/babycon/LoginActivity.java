@@ -2,9 +2,11 @@ package com.example.babycon;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -57,11 +59,31 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean var = myDb.checkUser(loginUsername.getText().toString(), loginPassword.getText().toString());
-                int id_user = myDb.getUser(loginUsername.getText().toString(), loginPassword.getText().toString());
+                Cursor id_user = myDb.getUser(loginUsername.getText().toString(), loginPassword.getText().toString());
+                String buffer = null;
+                while(id_user.moveToNext()){
+                   buffer = id_user.getString(0);
+                }
+                Cursor id_child = myDb.checkBaby(buffer);
+                String buffer2 = null;
+                while(id_child.moveToNext()){
+                    buffer2 = id_child.getString(0);
+                }
+
+
                 if (var) {
                     Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
+                    if(buffer2 == null)
+                    {
+                        Intent intent = new Intent(LoginActivity.this, FirstTime.class);
+                        intent.putExtra("id", buffer);
+                        startActivity(intent);
+                        Toast.makeText(LoginActivity.this, "Add Child", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("id", buffer);
+                        startActivity(intent);
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "Login Failed !!", Toast.LENGTH_SHORT).show();
                 }

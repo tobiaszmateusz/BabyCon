@@ -18,6 +18,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.app.DatePickerDialog;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -48,13 +50,17 @@ public class PopRejestrActivity extends FragmentActivity implements DatePickerDi
     TextView textView;
     String userID;
 
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pop_layout_rejestruj);
+
+        DataBaseHelper myDB;
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        String __id = extras.getString("id");
+
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -74,9 +80,7 @@ public class PopRejestrActivity extends FragmentActivity implements DatePickerDi
         wyjdz = findViewById(R.id.wyjdz);
         imie = findViewById(R.id.imie2);
         text = (TextView) findViewById(R.id.data2);
-
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
+        myDB = new DataBaseHelper(this);
 
 
         zatw.setOnClickListener(new View.OnClickListener(){
@@ -95,21 +99,12 @@ public class PopRejestrActivity extends FragmentActivity implements DatePickerDi
                     return;
                 }
 
-                userID = fAuth.getCurrentUser().getUid();
-
-                DocumentReference dR = fStore.collection("users").document(userID);
-                Map<String,Object> user = new HashMap<>();
-                user.put("fname", wImie);
-                user.put("fdata", wData);
-                dR.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    private static final String TAG = "TAG";
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "onSucces: User profile created:"+userID);
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                boolean var = myDB.addBaby(__id, wImie, wData);
+                if(var){
+                    Toast.makeText(PopRejestrActivity.this, "Dodano dziecko", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(PopRejestrActivity.this, "Spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
             }
         });
 

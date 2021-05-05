@@ -26,7 +26,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class FirstTime extends Activity {
+public class FirstTime extends AppCompatActivity {
 
 
     @Override
@@ -35,10 +35,17 @@ public class FirstTime extends Activity {
         setContentView(R.layout.first_time);
 
 
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        String _id = extras.getString("id");
+
+
+
         findViewById(R.id.rejestruj).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (getApplicationContext(), PopRejestrActivity.class);
+                intent.putExtra("id", _id);
                 startActivity(intent);
             }
         });
