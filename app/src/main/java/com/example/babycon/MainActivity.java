@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private DataBaseHelper myDb;
     public String ___id;
-    private String out;
-    private Bundle results;
+    public String _idchild;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,34 +51,18 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         myDb = new DataBaseHelper(this);
 
-/*        Intent intent = getIntent();
-        out = intent.getExtras().getString("Key");*/
 
         Intent intent2 = getIntent();
         Bundle extras = intent2.getExtras();
         ___id = extras.getString("id");
-
-        /*Cursor id_child = myDb.checkBaby(___id);
-
-        ArrayList<HashMap<String, String>> maplist2 = new ArrayList<HashMap<String, String>>();
-
-        if (id_child.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                for(int i=2; i<id_child.getColumnCount();i++)
-                {
-                    map.put(id_child.getColumnName(i), id_child.getString(i));
-                }
-
-                maplist2.add(map);
-            } while (id_child.moveToNext());
-        }*/
+        _idchild = extras.getString("idchild");
 
 
         findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
+                finish();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
@@ -104,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle hm = new Bundle();
         hm.putString("danedziecka", maplist.get(0).get("BABYNAME"));
         hm.putString("dataurodzenia", maplist.get(0).get("BIRTHDAY"));
+        hm.putString("idchild", _idchild);
         return hm;
     }
 }

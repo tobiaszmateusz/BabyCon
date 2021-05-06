@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ComponentActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -26,6 +28,8 @@ import android.widget.TextView;
 import com.example.babycon.model.BasicModel;
 import com.example.babycon.model.SzczepieniaLista;
 import com.example.babycon.model.SzczepieniaListaAdapter;
+import com.example.babycon.model.WpisyLista;
+import com.example.babycon.model.WpisyListaAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -37,6 +41,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -52,37 +57,12 @@ public class Daily extends Fragment {
     TextView mSortowanie;
     RecyclerView mRecyclerView;
     Button dodaj;
-
+    private DataBaseHelper myDb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_daily, container, false);
-
-        mName = (TextView)rootView.findViewById(R.id.imie2);
-        mAge = (TextView)rootView.findViewById(R.id.wiek2);
-        MainActivity activity = (MainActivity)getActivity();
-        Bundle results = activity.getMyData();
-        String imie = results.getString("danedziecka");
-        String dataUrodzenia = results.getString("dataurodzenia");
-
-
-        java.util.Date date1 = new java.util.Date();
-        try{
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy"); // here set the pattern as you date in string was containing like date/month/year
-            Date d = sdf.parse(dataUrodzenia);
-        }catch(ParseException ex){
-            // handle parsing exception if date string was different from the pattern applying into the SimpleDateFormat contructor
-        }
-
-        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yy");
-        String currentDateandTime = sdf2.format(new Date());
-        int dateDifference = (int) getDateDiff(new SimpleDateFormat("dd/MM/yy"), dataUrodzenia, currentDateandTime);
-
-
-        mName.setText(imie);
-        mAge.setText(dateDifference+ " dni");
 
         return rootView;
     }
@@ -94,10 +74,27 @@ public class Daily extends Fragment {
         return linearLayoutManager;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mWeekAscOrDesc = (ImageView) getView().findViewById(R.id.updownimage);
         mSortowanie = getView().findViewById(R.id.sortowanie);
+
+
+        mName = (TextView)getView().findViewById(R.id.imie2);
+        mAge = (TextView)getView().findViewById(R.id.wiek2);
+        MainActivity activity = (MainActivity)getActivity();
+        Bundle results = activity.getMyData();
+        String imie = results.getString("danedziecka");
+        String dataUrodzenia = results.getString("dataurodzenia");
+        String idchild = results.getString("idchild");
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yy");
+        String currentDateandTime = sdf2.format(new Date());
+        int dateDifference = (int) getDateDiff(new SimpleDateFormat("MM/dd/yy"), dataUrodzenia, currentDateandTime);
+
+        mName.setText(imie);
+        mAge.setText(dateDifference+ " dni");
 
         mSortowanie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,28 +126,55 @@ public class Daily extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (getContext(), PopActivity.class);
+                intent.putExtra("idchild", idchild);
                 startActivity(intent);
             }
         });
 
 /*        setData();*/
 
+        myDb = new DataBaseHelper(getActivity());
+        Cursor id_child = myDb.getWpisy(idchild);
+        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
 
-        ArrayList<SzczepieniaLista> szczepienia = new ArrayList<SzczepieniaLista>();
-        szczepienia.add(new SzczepieniaLista("aaa", "1.6", R.drawable.ic_baseline_help_24));
-        szczepienia.add(new SzczepieniaLista("bbb", "2.0-2.1", R.drawable.ic_baseline_help_24));
-        szczepienia.add(new SzczepieniaLista("ccc", "2.2-2.2.3", R.drawable.ic_baseline_help_24));
-        szczepienia.add(new SzczepieniaLista("ddd", "2.3-2.3.7", R.drawable.ic_baseline_help_24));
+        if (id_child.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                for(int i=2; i<id_child.getColumnCount();i++)
+                {
+                    map.put(id_child.getColumnName(i), id_child.getString(i));
+                }
+
+                maplist.add(map);
+            } while (id_child.moveToNext());
+        }
+
+
+        ArrayList<String> name = new ArrayList<String>();
+        ArrayList<WpisyLista> wpisy = new ArrayList<WpisyLista>();
+        for(int i = 0; i < maplist.size(); i++)
+        {
+            for (Map.Entry<String, String> entry : maplist.get(i).entrySet())
+            {
+                name.add(entry.getValue());
+            }
+        }
+
+        for (int j = 0; j < name.size(); j++){
+            if(j%4 == 0){
+                wpisy.add(new WpisyLista(name.get(j), "Obówd głowy: " + name.get(j+1) + " - " + "Obówd klatki: "+ name.get(j+2) + " - " + "Notatka: "+ name.get(j+3), R.drawable.ic_baseline_help_24));
+            }
+        }
 
 
         // Create an {@link AndroidFlavorAdapter}, whose data source is a list of
         // {@link AndroidFlavor}s. The adapter knows how to create list item views for each item
         // in the list.
-        SzczepieniaListaAdapter szczepieniaAdapter = new SzczepieniaListaAdapter(getActivity(), szczepienia);
+        WpisyListaAdapter wpisyAdapter = new WpisyListaAdapter(getActivity(), wpisy);
 
         // Get a reference to the ListView, and attach the adapter to the listView.
         ListView listView = view.findViewById(R.id.listview_wpisy);
-        listView.setAdapter(szczepieniaAdapter);
+        listView.setAdapter(wpisyAdapter);
     }
 
 

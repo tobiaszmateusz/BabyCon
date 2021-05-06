@@ -82,11 +82,13 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("id", buffer);
+                        intent.putExtra("idchild", buffer2);
                         startActivity(intent);
                     }
                 } else {
                     Toast.makeText(LoginActivity.this, "Login Failed !!", Toast.LENGTH_SHORT).show();
                 }
+                finish();
             }
         });
     }
