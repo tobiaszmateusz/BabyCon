@@ -133,6 +133,7 @@ public class Daily extends Fragment {
 
 /*        setData();*/
 
+
         myDb = new DataBaseHelper(getActivity());
         Cursor id_child = myDb.getWpisy(idchild);
         ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
