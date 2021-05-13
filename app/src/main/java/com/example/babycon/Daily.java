@@ -162,8 +162,8 @@ public class Daily extends Fragment {
         }
 
         for (int j = 0; j < name.size(); j++){
-            if(j%4 == 0){
-                wpisy.add(new WpisyLista(name.get(j), "Obówd głowy: " + name.get(j+1) + " - " + "Obówd klatki: "+ name.get(j+2) + " - " + "Notatka: "+ name.get(j+3), R.drawable.ic_baseline_help_24));
+            if(j%5 == 0){
+                wpisy.add(new WpisyLista(name.get(j), "Obówd głowy: " + name.get(j+1) + " - " + "Obówd klatki: "+ name.get(j+2)+ " - " + "Waga: "+ name.get(j+3) + " - " + "Notatka: "+ name.get(j+4), R.drawable.ic_baseline_help_24));
             }
         }
 

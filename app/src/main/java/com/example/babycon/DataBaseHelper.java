@@ -15,6 +15,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String TABLE_NAME2 = "BABY_DATA";
     private static final String TABLE_NAME3 = "SZCZEPIENIA";
     private static final String TABLE_NAME4 = "BABY_POMIARY";
+    private static final String TABLE_NAME5 = "BABY_SZCZEPIENIA";
     private static final String COL_1 = "ID";
     private static final String COL_2 = "USERNAME";
     private static final String COL_3 = "EMAIL";
@@ -22,13 +23,14 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String COL_5 = "ID";
     private static final String COL_6 = "BABYNAME";
     private static final String COL_7 = "BIRTHDAY";
+    private static final String COL_8 = "PLEC";
 
     private static final String COL_10 = "BABY_ID";
     private static final String COL_11 = "DATA";
     private static final String COL_12 = "OBWOD_GL";
     private static final String COL_13 = "OBWOD_KLATKI";
     private static final String COL_14 = "NOTATKA";
-
+    private static final String COL_15 = "WAGA";
 
 
     public DataBaseHelper(@Nullable Context context) {
@@ -38,9 +40,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT , USERNAME TEXT , EMAIL TEXT , PASSWORD TEXT )");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME2 + "(BABY_ID INTEGER PRIMARY KEY AUTOINCREMENT , ID INTEGER , BABYNAME TEXT , BIRTHDAY DATE , FOREIGN KEY(ID) REFERENCES USER_DATA(ID) )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME2 + "(BABY_ID INTEGER PRIMARY KEY AUTOINCREMENT , ID INTEGER , BABYNAME TEXT , BIRTHDAY DATE, PLEC TEXT ,FOREIGN KEY(ID) REFERENCES USER_DATA(ID) )");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME3 + "(ID_SZCZEPIENIA INTEGER PRIMARY KEY, NAZWA TEXT, DATA TEXT, NASZA_DATA TEXT, POTWIERDZENIE INTEGER, OPIS TEXT)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME4 + "(ID_DATA INTEGER PRIMARY KEY AUTOINCREMENT , BABY_ID INTEGER, DATA TEXT, OBWOD_GL INTEGER, OBWOD_KLATKI INTEGER, NOTATKA TEXT, FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID) )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME4 + "(ID_DATA INTEGER PRIMARY KEY AUTOINCREMENT , BABY_ID INTEGER, DATA TEXT, OBWOD_GL INTEGER, OBWOD_KLATKI INTEGER, WAGA INTEGER, NOTATKA TEXT, FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID) )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME5 + "(ID_CHSZ INTEGER PRIMARY KEY AUTOINCREMENT, BABY_ID INTEGER, ID_SZCZEPIENIA INTEGER ,FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID), FOREIGN KEY(ID_SZCZEPIENIA) REFERENCES SZCZEPIENIA(ID_SZCZEPIENIA))");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -48,7 +51,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME2);
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME3);
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME4);
-
+        db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME5);
         onCreate(db);
     }
 
@@ -99,12 +102,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         return cursor;
     }
 
-    public boolean addBaby(String ID, String name, String data){
+    public boolean addBaby(String ID, String name, String data, String plec){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COL_5 , ID);
         values.put(COL_6 , name);
         values.put(COL_7 , data);
+        values.put(COL_8 , plec);
 
         long result = db.insert(TABLE_NAME2 , null , values);
         if(result == -1)
@@ -113,7 +117,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             return true;
     }
 
-    public boolean insertdata(String ID, String DATA, String obgl, String obkl, String notatka){
+    public boolean insertdata(String ID, String DATA, String obgl, String obkl, String notatka, String waga){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -122,6 +126,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         values.put(COL_12,obgl);
         values.put(COL_13,obkl);
         values.put(COL_14,notatka);
+        values.put(COL_15,waga);
 
         long result = db.insert(TABLE_NAME4 , null , values);
         if(result == -1)
@@ -133,6 +138,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public Cursor getWpisy(String ID){
         SQLiteDatabase db = this.getReadableDatabase();
         String Query = "Select * from " + TABLE_NAME4 + " where " + COL_10 + " = " + ID;
+        Cursor cursor = db.rawQuery(Query, null);
+        return cursor;
+    }
+
+    public Cursor getSzczepionki(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "Select * from " + TABLE_NAME3;
         Cursor cursor = db.rawQuery(Query, null);
         return cursor;
     }
