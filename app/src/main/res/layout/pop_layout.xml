@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="35dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/shape2"
             android:textColor="@color/white"
             android:text="Dodaj" />
@@ -31,7 +31,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="35dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/shape2"
             android:text="Wyjdź" />
 
@@ -151,13 +151,52 @@
             app:layout_constraintStart_toEndOf="@+id/obwodklatki"
             app:layout_constraintTop_toBottomOf="@+id/obwodglowy2" />
 
+        <TextView
+            android:id="@+id/wzrost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/waga"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:text="Wzrost : "
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/obwodglowy" />
+
+        <EditText
+            android:id="@+id/wzrost2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/waga2"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/wzrost"
+            android:layout_weight="0.8"
+            android:gravity=""
+            android:padding="5dp"
+            android:inputType="number"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/obwodklatki"
+            app:layout_constraintTop_toBottomOf="@+id/obwodglowy2" />
+
         <EditText
             android:id="@+id/notatnik"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/shape"
-            android:layout_below="@+id/waga"
-            android:layout_marginTop="40dp"
+            android:layout_below="@+id/wzrost"
+            android:layout_marginTop="25dp"
             android:hint="Notatka"
             android:textColor="@color/white"
             android:textColorHint="#FFFFFF" />

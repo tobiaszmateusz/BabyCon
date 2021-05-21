@@ -22,7 +22,7 @@ import java.util.Date;
 
 public class PopActivity extends FragmentActivity {
 
-    private EditText  obwodglowy, obwodklatki, notatnik, waga;
+    private EditText  obwodglowy, obwodklatki, notatnik, waga, wzrost;
     Button dodaj;
     Button wyjdz;
     String _id;
@@ -45,7 +45,7 @@ public class PopActivity extends FragmentActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.8),(int)(height*.7));
+        getWindow().setLayout((int)(width*.8),(int)(height*.8));
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
@@ -60,6 +60,7 @@ public class PopActivity extends FragmentActivity {
         obwodklatki = findViewById(R.id.obwodklatki2);
         notatnik = findViewById(R.id.notatnik);
         waga = findViewById(R.id.waga2);
+        wzrost = findViewById(R.id.wzrost2);
 
         SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yy");
         String currentDateandTime = sdf2.format(new Date());
@@ -67,7 +68,7 @@ public class PopActivity extends FragmentActivity {
         dodaj.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                boolean var = myDb.insertdata(_id, currentDateandTime, obwodglowy.getText().toString(), obwodklatki.getText().toString(), notatnik.getText().toString(), waga.getText().toString());
+                boolean var = myDb.insertData(_id, currentDateandTime, obwodglowy.getText().toString(), obwodklatki.getText().toString(), notatnik.getText().toString(), waga.getText().toString(), wzrost.getText().toString());
                 Toast.makeText(PopActivity.this, "Dane dodano", Toast.LENGTH_SHORT).show();
                 finish();
             }
