@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private DataBaseHelper myDb;
     public String ___id;
     public String _idchild;
-
+    public String _plec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = intent2.getExtras();
         ___id = extras.getString("id");
         _idchild = extras.getString("idchild");
-
+        _plec = extras.getString("plec");
 
         findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         hm.putString("danedziecka", maplist.get(0).get("BABYNAME"));
         hm.putString("dataurodzenia", maplist.get(0).get("BIRTHDAY"));
         hm.putString("idchild", _idchild);
+        hm.putString("plec", maplist.get(0).get("PLEC"));
         return hm;
     }
 }

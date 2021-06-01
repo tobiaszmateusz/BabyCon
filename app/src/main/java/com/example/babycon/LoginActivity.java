@@ -65,9 +65,14 @@ public class LoginActivity extends AppCompatActivity {
                    buffer = id_user.getString(0);
                 }
                 Cursor id_child = myDb.checkBaby(buffer);
+                Cursor plec = myDb.checkPlec(buffer);
                 String buffer2 = null;
+                String buffer3 = null;
                 while(id_child.moveToNext()){
                     buffer2 = id_child.getString(0);
+                }
+                while(plec.moveToNext()){
+                    buffer3 = plec.getString(4);
                 }
 
 
@@ -83,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("id", buffer);
                         intent.putExtra("idchild", buffer2);
+                        intent.putExtra("plec", buffer3);
                         startActivity(intent);
                     }
                 } else {

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="35dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/shape2"
             android:textColor="@color/white"
             android:text="Dodaj" />
@@ -31,7 +31,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="35dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/shape2"
             android:text="Wyjdź" />
 
@@ -45,7 +45,7 @@
             android:layout_weight="0.8"
             android:gravity=""
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:padding="5dp"
             android:text="Obwód głowy : "
             android:textColor="@color/white"
@@ -63,7 +63,7 @@
             android:layout_marginStart="8dp"
             android:inputType="number"
             android:layout_toEndOf="@+id/obwodglowy"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="0.8"
             android:gravity=""
             android:padding="5dp"
@@ -112,7 +112,6 @@
             app:layout_constraintStart_toEndOf="@+id/obwodklatki"
             app:layout_constraintTop_toBottomOf="@+id/obwodglowy2" />
 
-<<<<<<< HEAD
         <TextView
             android:id="@+id/waga"
             android:layout_width="wrap_content"
@@ -152,7 +151,6 @@
             app:layout_constraintStart_toEndOf="@+id/obwodklatki"
             app:layout_constraintTop_toBottomOf="@+id/obwodglowy2" />
 
-<<<<<<< HEAD
         <TextView
             android:id="@+id/wzrost"
             android:layout_width="wrap_content"
@@ -192,28 +190,15 @@
             app:layout_constraintStart_toEndOf="@+id/obwodklatki"
             app:layout_constraintTop_toBottomOf="@+id/obwodglowy2" />
 
-=======
->>>>>>> parent of b1455a9 (Commit 11)
-=======
->>>>>>> parent of f6e8aea (Commit 12)
         <EditText
             android:id="@+id/notatnik"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/shape"
-<<<<<<< HEAD
-<<<<<<< HEAD
             android:layout_below="@+id/wzrost"
             android:layout_marginTop="25dp"
-=======
-            android:layout_below="@+id/obwodklatki"
-            android:layout_marginTop="40dp"
->>>>>>> parent of b1455a9 (Commit 11)
-=======
-            android:layout_below="@+id/waga"
-            android:layout_marginTop="40dp"
->>>>>>> parent of f6e8aea (Commit 12)
             android:hint="Notatka"
+            android:textColor="@color/white"
             android:textColorHint="#FFFFFF" />
     </RelativeLayout>
 
