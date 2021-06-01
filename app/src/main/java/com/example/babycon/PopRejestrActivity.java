@@ -13,13 +13,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.app.DatePickerDialog;
 import android.widget.Toast;
@@ -39,7 +35,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.w3c.dom.Text;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +49,6 @@ public class PopRejestrActivity extends FragmentActivity implements DatePickerDi
     TextView text;
     TextView textView;
     String userID;
-    CheckBox chlopak,dziewczyna;
 
 
     @Override
@@ -81,8 +75,7 @@ public class PopRejestrActivity extends FragmentActivity implements DatePickerDi
         params.gravity = Gravity.CENTER;
         params.x =0;
         params.y = -50;
-        chlopak=(CheckBox)findViewById(R.id.plec2b);
-        dziewczyna=(CheckBox)findViewById(R.id.plec2a);
+
         zatw = findViewById(R.id.zatwierdz);
         wyjdz = findViewById(R.id.wyjdz);
         imie = findViewById(R.id.imie2);
@@ -90,43 +83,11 @@ public class PopRejestrActivity extends FragmentActivity implements DatePickerDi
         myDB = new DataBaseHelper(this);
 
 
-        chlopak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chlopak.setChecked(true);
-                chlopak.setSelected(true);
-                dziewczyna.setChecked(false);
-                dziewczyna.setSelected(false);
-            }
-        });
-
-        dziewczyna.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chlopak.setChecked(false);
-                chlopak.setSelected(false);
-                dziewczyna.setChecked(true);
-                dziewczyna.setSelected(true);
-            }
-        });
-
-
         zatw.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 String wImie  = imie.getText().toString();
                 String wData = text.getText().toString();
-                String wPlec = null;
-                if(dziewczyna.isSelected()){
-                    wPlec = "dziewczyna";
-                }
-                if(chlopak.isSelected()){
-                    wPlec = "chłopak";
-                }
-                if(!chlopak.isSelected()  && !dziewczyna.isSelected()){
-                    Toast.makeText(PopRejestrActivity.this, "Wybierz płeć", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
 
                 if (TextUtils.isEmpty(wImie)) {
                     imie.setError("Imie jest konieczne");
@@ -138,7 +99,7 @@ public class PopRejestrActivity extends FragmentActivity implements DatePickerDi
                     return;
                 }
 
-                boolean var = myDB.addBaby(__id, wImie, wData, wPlec);
+                boolean var = myDB.addBaby(__id, wImie, wData);
                 if(var){
                     Toast.makeText(PopRejestrActivity.this, "Dodano dziecko", Toast.LENGTH_SHORT).show();
                 }

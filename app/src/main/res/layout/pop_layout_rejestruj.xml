@@ -129,69 +129,6 @@
             app:layout_constraintStart_toEndOf="@+id/wiek"
             app:layout_constraintTop_toBottomOf="@+id/imie2" />
 
-        <TextView
-            android:id="@+id/plec"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/data"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="center_vertical"
-
-            android:layout_weight="0.8"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
-            android:gravity=""
-            android:padding="5dp"
-            android:text="Płeć : "
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imie" />
-
-        <CheckBox
-            android:id="@+id/plec2a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/data2"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
-            android:layout_toEndOf="@+id/plec"
-            android:layout_weight="0.8"
-            android:clickable="true"
-            android:gravity=""
-            android:hint="Dziewczyna"
-            android:padding="5dp"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            app:layout_constraintStart_toEndOf="@+id/wiek"
-            app:layout_constraintTop_toBottomOf="@+id/imie2" />
-
-        <CheckBox
-            android:id="@+id/plec2b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/plec2a"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_toEndOf="@+id/plec"
-            android:layout_weight="0.8"
-            android:clickable="true"
-            android:gravity=""
-            android:hint="Chłopak"
-            android:padding="5dp"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            app:layout_constraintStart_toEndOf="@+id/wiek"
-            app:layout_constraintTop_toBottomOf="@+id/imie2" />
-
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

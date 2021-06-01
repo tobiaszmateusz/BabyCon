@@ -163,8 +163,13 @@ public class Daily extends Fragment {
         }
 
         for (int j = 0; j < name.size(); j++){
+<<<<<<< HEAD
             if(j%6 == 0){
                 wpisy.add(new WpisyLista(name.get(j+1), "Obówd głowy: " + name.get(j+2) + " \n" + "Obówd klatki: "+ name.get(j)+ " \n" + "Waga: "+ name.get(j+3) + " \n" + "Wzrost: "+ name.get(j+4) + " \n" + "Notatka: "+ name.get(j+5), R.drawable.ic_baseline_help_24));
+=======
+            if(j%4 == 0){
+                wpisy.add(new WpisyLista(name.get(j), "Obówd głowy: " + name.get(j+1) + " - " + "Obówd klatki: "+ name.get(j+2) + " - " + "Notatka: "+ name.get(j+3), R.drawable.ic_baseline_help_24));
+>>>>>>> parent of b1455a9 (Commit 11)
             }
         }
 

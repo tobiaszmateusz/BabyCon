@@ -45,7 +45,7 @@
             android:layout_weight="0.8"
             android:gravity=""
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:padding="5dp"
             android:text="Obwód głowy : "
             android:textColor="@color/white"
@@ -63,7 +63,7 @@
             android:layout_marginStart="8dp"
             android:inputType="number"
             android:layout_toEndOf="@+id/obwodglowy"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:layout_weight="0.8"
             android:gravity=""
             android:padding="5dp"
@@ -112,6 +112,7 @@
             app:layout_constraintStart_toEndOf="@+id/obwodklatki"
             app:layout_constraintTop_toBottomOf="@+id/obwodglowy2" />
 
+<<<<<<< HEAD
         <TextView
             android:id="@+id/waga"
             android:layout_width="wrap_content"
@@ -190,15 +191,21 @@
             app:layout_constraintStart_toEndOf="@+id/obwodklatki"
             app:layout_constraintTop_toBottomOf="@+id/obwodglowy2" />
 
+=======
+>>>>>>> parent of b1455a9 (Commit 11)
         <EditText
             android:id="@+id/notatnik"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/shape"
+<<<<<<< HEAD
             android:layout_below="@+id/wzrost"
             android:layout_marginTop="25dp"
+=======
+            android:layout_below="@+id/obwodklatki"
+            android:layout_marginTop="40dp"
+>>>>>>> parent of b1455a9 (Commit 11)
             android:hint="Notatka"
-            android:textColor="@color/white"
             android:textColorHint="#FFFFFF" />
     </RelativeLayout>
 

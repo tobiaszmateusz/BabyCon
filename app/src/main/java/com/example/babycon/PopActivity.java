@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -22,7 +21,11 @@ import java.util.Date;
 
 public class PopActivity extends FragmentActivity {
 
+<<<<<<< HEAD
     private EditText  obwodglowy, obwodklatki, notatnik, waga, wzrost;
+=======
+    private EditText  obwodglowy, obwodklatki, notatnik;
+>>>>>>> parent of b1455a9 (Commit 11)
     Button dodaj;
     Button wyjdz;
     String _id;
@@ -59,8 +62,11 @@ public class PopActivity extends FragmentActivity {
         obwodglowy = findViewById(R.id.obwodglowy2);
         obwodklatki = findViewById(R.id.obwodklatki2);
         notatnik = findViewById(R.id.notatnik);
+<<<<<<< HEAD
         waga = findViewById(R.id.waga2);
         wzrost = findViewById(R.id.wzrost2);
+=======
+>>>>>>> parent of b1455a9 (Commit 11)
 
         SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yy");
         String currentDateandTime = sdf2.format(new Date());
@@ -68,8 +74,12 @@ public class PopActivity extends FragmentActivity {
         dodaj.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 boolean var = myDb.insertData(_id, currentDateandTime, obwodglowy.getText().toString(), obwodklatki.getText().toString(), notatnik.getText().toString(), waga.getText().toString(), wzrost.getText().toString());
                 Toast.makeText(PopActivity.this, "Dane dodano", Toast.LENGTH_SHORT).show();
+=======
+                boolean var = myDb.insertdata(_id, currentDateandTime, obwodglowy.getText().toString(), obwodklatki.getText().toString(), notatnik.getText().toString());
+>>>>>>> parent of b1455a9 (Commit 11)
                 finish();
             }
         });
