@@ -2,6 +2,7 @@ package com.example.babycon;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -15,10 +16,13 @@ import android.widget.ListView;
 
 import com.example.babycon.model.SzczepieniaLista;
 import com.example.babycon.model.SzczepieniaListaAdapter;
+import com.example.babycon.model.SzczepieniaListaAdapter_Tick;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,6 +40,7 @@ public class Szczepienia extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private DataBaseHelper myDb;
 
     public Szczepienia() {
         // Required empty public constructor
@@ -87,12 +92,6 @@ public class Szczepienia extends Fragment {
         String imie = results.getString("danedziecka");
         String dataUrodzenia = results.getString("dataurodzenia");
         String idchild = results.getString("idchild");
-
-        SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yy");
-        String currentDateandTime = sdf2.format(new Date());
-        int dateDifference = (int) getDateDiff(new SimpleDateFormat("MM/dd/yy"), dataUrodzenia, currentDateandTime);
-
-
     }
 
 
@@ -100,8 +99,17 @@ public class Szczepienia extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_szczepienia, container, false);
+
+        MainActivity activity = (MainActivity)getActivity();
+        Bundle results = activity.getMyData();
+        String dataUrodzenia = results.getString("dataurodzenia");
+        String idchild = results.getString("idchild");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yy");
+        String currentDateandTime = sdf2.format(new Date());
+        int dateDifference = (int) getDateDiff(new SimpleDateFormat("MM/dd/yy"), dataUrodzenia, currentDateandTime);
+
         // Create an ArrayList of AndroidFlavor objects
-        ArrayList<SzczepieniaLista> szczepienia = new ArrayList<SzczepieniaLista>();
+/*        ArrayList<SzczepieniaLista> szczepienia = new ArrayList<SzczepieniaLista>();
         szczepienia.add(new SzczepieniaLista("aaa", "1.6", R.drawable.ic_baseline_help_24));
         szczepienia.add(new SzczepieniaLista("bbb", "2.0-2.1", R.drawable.ic_baseline_help_24));
         szczepienia.add(new SzczepieniaLista("ccc", "2.2-2.2.3", R.drawable.ic_baseline_help_24));
@@ -116,7 +124,56 @@ public class Szczepienia extends Fragment {
         // Get a reference to the ListView, and attach the adapter to the listView.
         ListView listView = view.findViewById(R.id.listview_szczepienia2);
         listView.setAdapter(szczepieniaAdapter);
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment*/
+
+        myDb = new DataBaseHelper(getActivity());
+        Cursor szczepionki = myDb.getSzczepionkiCH(idchild);
+        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
+
+        if (szczepionki.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                for(int i=0; i<szczepionki.getColumnCount();i++)
+                {
+                    map.put(szczepionki.getColumnName(i), szczepionki.getString(i));
+                }
+
+                maplist.add(map);
+            } while (szczepionki.moveToNext());
+        }
+
+        ArrayList<String> name = new ArrayList<String>();
+        ArrayList<SzczepieniaLista> szczepienia = new ArrayList<SzczepieniaLista>();
+        for(int i = 0; i < maplist.size(); i++)
+        {
+            for (Map.Entry<String, String> entry : maplist.get(i).entrySet())
+            {
+                name.add(entry.getValue());
+            }
+        }
+
+
+        for (int j = 0; j < name.size(); j++){
+            if(j%3 == 0){
+                if(Integer.parseInt(name.get(j+1)) / 24 < dateDifference)
+                {
+                    szczepienia.add(new SzczepieniaLista(name.get(j+2) + "\n", "Czas: "+ name.get(j) + "\n\nOpóźnienie!", R.drawable.ic_baseline_help_24));
+
+                }else
+                {
+                    szczepienia.add(new SzczepieniaLista(name.get(j) + "\n", "Czas: "+ name.get(j) + "\n", R.drawable.ic_baseline_help_24));
+
+                }
+            }
+        }
+
+
+        SzczepieniaListaAdapter_Tick szczepieniaAdapter = new SzczepieniaListaAdapter_Tick(getActivity(), szczepienia);
+        ListView listView = view.findViewById(R.id.listview_szczepienia2);
+        listView.setAdapter(szczepieniaAdapter);
+
+
+
         return view;
 
     }

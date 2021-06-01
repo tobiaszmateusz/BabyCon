@@ -58,6 +58,7 @@ public class Daily extends Fragment {
     RecyclerView mRecyclerView;
     Button dodaj;
     Button fabb;
+    String wzrost = null;
     private DataBaseHelper myDb;
 
     @Override
@@ -161,7 +162,10 @@ public class Daily extends Fragment {
             }
         }
 
-        String wzrost=name.get(0);
+/*        if (name != null)
+        {
+            wzrost=name.get(0);
+        }*/
 
         fabb = getView().findViewById(R.id.fab);
         fabb.setOnClickListener(new View.OnClickListener() {
