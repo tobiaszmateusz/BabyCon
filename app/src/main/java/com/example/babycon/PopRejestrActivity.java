@@ -105,13 +105,6 @@ public class PopRejestrActivity extends FragmentActivity implements DatePickerDi
                 }
                 else
                     Toast.makeText(PopRejestrActivity.this, "Spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
-
-                boolean var2 = myDB.stworzSzczepionki(__id);
-                if(var2){
-                    Toast.makeText(PopRejestrActivity.this, "Dodano dziecko", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    Toast.makeText(PopRejestrActivity.this, "Spróbuj jeszcze raz", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent (getApplication(), LoginActivity.class);
                 startActivity(intent);
             }

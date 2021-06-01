@@ -83,7 +83,6 @@ public class Daily extends Fragment {
 
         mName = (TextView)getView().findViewById(R.id.imie2);
         mAge = (TextView)getView().findViewById(R.id.wiek2);
-        mHeight = (TextView)getView().findViewById(R.id.wzrost2);
         MainActivity activity = (MainActivity)getActivity();
         Bundle results = activity.getMyData();
         String imie = results.getString("danedziecka");
@@ -164,12 +163,17 @@ public class Daily extends Fragment {
 
         for (int j = 0; j < name.size(); j++){
 <<<<<<< HEAD
+<<<<<<< HEAD
             if(j%6 == 0){
                 wpisy.add(new WpisyLista(name.get(j+1), "Obówd głowy: " + name.get(j+2) + " \n" + "Obówd klatki: "+ name.get(j)+ " \n" + "Waga: "+ name.get(j+3) + " \n" + "Wzrost: "+ name.get(j+4) + " \n" + "Notatka: "+ name.get(j+5), R.drawable.ic_baseline_help_24));
 =======
             if(j%4 == 0){
                 wpisy.add(new WpisyLista(name.get(j), "Obówd głowy: " + name.get(j+1) + " - " + "Obówd klatki: "+ name.get(j+2) + " - " + "Notatka: "+ name.get(j+3), R.drawable.ic_baseline_help_24));
 >>>>>>> parent of b1455a9 (Commit 11)
+=======
+            if(j%5 == 0){
+                wpisy.add(new WpisyLista(name.get(j), "Obówd głowy: " + name.get(j+1) + " - " + "Obówd klatki: "+ name.get(j+2)+ " - " + "Waga: "+ name.get(j+3) + " - " + "Notatka: "+ name.get(j+4), R.drawable.ic_baseline_help_24));
+>>>>>>> parent of f6e8aea (Commit 12)
             }
         }
 
@@ -184,6 +188,11 @@ public class Daily extends Fragment {
         listView.setAdapter(wpisyAdapter);
     }
 
+
+    public void setData() {
+        mName.setText("Jakub");
+        mAge.setText("20 miesięcy");
+    }
 
     public static long getDateDiff(SimpleDateFormat format, String oldDate, String newDate) {
         try {

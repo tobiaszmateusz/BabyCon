@@ -30,11 +30,14 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String COL_14 = "NOTATKA";
 <<<<<<< HEAD
     private static final String COL_15 = "WAGA";
+<<<<<<< HEAD
     private static final String COL_16 = "WZROST";
     private static final String COL_17 = "ID_SZCZEPIENIA";
 =======
 
 >>>>>>> parent of b1455a9 (Commit 11)
+=======
+>>>>>>> parent of f6e8aea (Commit 12)
 
 
     public DataBaseHelper(@Nullable Context context) {
@@ -47,7 +50,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME2 + "(BABY_ID INTEGER PRIMARY KEY AUTOINCREMENT , ID INTEGER , BABYNAME TEXT , BIRTHDAY DATE , FOREIGN KEY(ID) REFERENCES USER_DATA(ID) )");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME3 + "(ID_SZCZEPIENIA INTEGER PRIMARY KEY, NAZWA TEXT, DATA TEXT, NASZA_DATA TEXT, POTWIERDZENIE INTEGER, OPIS TEXT)");
 <<<<<<< HEAD
+<<<<<<< HEAD
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME4 + "(ID_DATA INTEGER PRIMARY KEY AUTOINCREMENT , BABY_ID INTEGER, DATA TEXT, OBWOD_GL INTEGER, OBWOD_KLATKI INTEGER, WAGA INTEGER, WZROST INTEGER, NOTATKA TEXT, FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID) )");
+=======
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME4 + "(ID_DATA INTEGER PRIMARY KEY AUTOINCREMENT , BABY_ID INTEGER, DATA TEXT, OBWOD_GL INTEGER, OBWOD_KLATKI INTEGER, WAGA INTEGER, NOTATKA TEXT, FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID) )");
+>>>>>>> parent of f6e8aea (Commit 12)
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME5 + "(ID_CHSZ INTEGER PRIMARY KEY AUTOINCREMENT, BABY_ID INTEGER, ID_SZCZEPIENIA INTEGER ,FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID), FOREIGN KEY(ID_SZCZEPIENIA) REFERENCES SZCZEPIENIA(ID_SZCZEPIENIA))");
 =======
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME4 + "(ID_DATA INTEGER PRIMARY KEY AUTOINCREMENT , BABY_ID INTEGER, DATA TEXT, OBWOD_GL INTEGER, OBWOD_KLATKI INTEGER, NOTATKA TEXT, FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID) )");
@@ -125,10 +132,14 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public boolean insertData(String ID, String DATA, String obgl, String obkl, String notatka, String waga, String wzrost){
 =======
     public boolean insertdata(String ID, String DATA, String obgl, String obkl, String notatka){
 >>>>>>> parent of b1455a9 (Commit 11)
+=======
+    public boolean insertdata(String ID, String DATA, String obgl, String obkl, String notatka, String waga){
+>>>>>>> parent of f6e8aea (Commit 12)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -139,9 +150,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         values.put(COL_14,notatka);
 <<<<<<< HEAD
         values.put(COL_15,waga);
+<<<<<<< HEAD
         values.put(COL_16,wzrost);
 =======
 >>>>>>> parent of b1455a9 (Commit 11)
+=======
+>>>>>>> parent of f6e8aea (Commit 12)
 
         long result = db.insert(TABLE_NAME4 , null , values);
         if(result == -1)
@@ -167,28 +181,4 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(Query, null);
         return cursor;
     }*/
-
-    public boolean stworzSzczepionki(String id){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select Count(ID_SZCZEPIENIA) from " + TABLE_NAME3;
-        Cursor cursor = db.rawQuery(Query, null);
-
-        ContentValues values = new ContentValues();
-
-
-        for(int i = 1; i < 31; i++) {
-
-            values.put(COL_10,id);
-            values.put(COL_17,i);
-            db.insert(TABLE_NAME5 , null , values);
-
-        }
-
-        long result = db.insert(TABLE_NAME5 , null , values);
-        if(result == -1)
-            return false;
-        else
-            return true;
-
-    }
 }

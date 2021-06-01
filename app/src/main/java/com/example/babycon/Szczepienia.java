@@ -16,10 +16,7 @@ import android.widget.ListView;
 import com.example.babycon.model.SzczepieniaLista;
 import com.example.babycon.model.SzczepieniaListaAdapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,18 +78,6 @@ public class Szczepienia extends Fragment {
                 startActivity(intent);
             }
         });
-
-        MainActivity activity = (MainActivity)getActivity();
-        Bundle results = activity.getMyData();
-        String imie = results.getString("danedziecka");
-        String dataUrodzenia = results.getString("dataurodzenia");
-        String idchild = results.getString("idchild");
-
-        SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yy");
-        String currentDateandTime = sdf2.format(new Date());
-        int dateDifference = (int) getDateDiff(new SimpleDateFormat("MM/dd/yy"), dataUrodzenia, currentDateandTime);
-
-
     }
 
 
@@ -119,14 +104,5 @@ public class Szczepienia extends Fragment {
         // Inflate the layout for this fragment
         return view;
 
-    }
-
-    public static long getDateDiff(SimpleDateFormat format, String oldDate, String newDate) {
-        try {
-            return TimeUnit.DAYS.convert(format.parse(newDate).getTime() - format.parse(oldDate).getTime(), TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
     }
 }
