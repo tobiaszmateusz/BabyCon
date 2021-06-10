@@ -163,7 +163,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     public Cursor getSzczepionkiCH(String ID){
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query2 = "SELECT NAZWA, s.DATA, TERMIN FROM BABY_SZCZEPIENIA b LEFT OUTER JOIN SZCZEPIENIA s on B.ID_SZCZEPIENIA = S.ID_SZCZEPIENIA WHERE BABY_ID = "+ ID + " ORDER BY TERMIN ASC";
+        String Query2 = "SELECT NAZWA, s.DATA, TERMIN FROM BABY_SZCZEPIENIA b LEFT OUTER JOIN SZCZEPIENIA s on B.ID_SZCZEPIENIA = S.ID_SZCZEPIENIA WHERE BABY_ID = "+ ID + " AND B.DATA = "+ "\"null\"" +" ORDER BY TERMIN ASC";
         Cursor cursor = db.rawQuery(Query2, null);
         return cursor;
     }
@@ -191,6 +191,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
             values.put(COL_10,id);
             values.put(COL_17,i);
+            values.put(COL_11,"null");
             db.insert(TABLE_NAME5 , null , values);
 
         }

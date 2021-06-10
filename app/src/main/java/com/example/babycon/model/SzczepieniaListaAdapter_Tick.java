@@ -1,15 +1,27 @@
 package com.example.babycon.model;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.babycon.PopSzczepienieActivity;
 import com.example.babycon.R;
+import com.example.babycon.Szczegoly;
+import com.example.babycon.Szczepienia;
 
 import java.util.ArrayList;
+
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class SzczepieniaListaAdapter_Tick extends ArrayAdapter<SzczepieniaLista> {
 
@@ -18,9 +30,9 @@ public class SzczepieniaListaAdapter_Tick extends ArrayAdapter<SzczepieniaLista>
  * {@link AndroidFlavorAdapter} is an {@link ArrayAdapter} that can provide the layout for each list
  * based on a data source, which is a list of {@link AndroidFlavor} objects.
  * */
-
+    Context mContext;
     private static final String LOG_TAG = SzczepieniaListaAdapter_Tick.class.getSimpleName();
-
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
      * The context is used to inflate the layout file, and the list is the data we want
@@ -29,7 +41,7 @@ public class SzczepieniaListaAdapter_Tick extends ArrayAdapter<SzczepieniaLista>
      * @param context        The current context. Used to inflate the layout file.
      * @param androidFlavors A List of AndroidFlavor objects to display in a list
      */
-    public SzczepieniaListaAdapter_Tick(Activity context, ArrayList<SzczepieniaLista> androidFlavors) {
+    public SzczepieniaListaAdapter_Tick(Activity context, ArrayList<SzczepieniaLista> androidFlavors, String idchild) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
@@ -55,6 +67,8 @@ public class SzczepieniaListaAdapter_Tick extends ArrayAdapter<SzczepieniaLista>
                     R.layout.list_item_tick, parent, false);
         }
 
+        mContext = parent.getContext();
+
         // Get the {@link AndroidFlavor} object located at this position in the list
         SzczepieniaLista currentAndroidFlavor = getItem(position);
 
@@ -78,6 +92,22 @@ public class SzczepieniaListaAdapter_Tick extends ArrayAdapter<SzczepieniaLista>
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
+
+        CheckBox check = (CheckBox) listItemView.findViewById(R.id.zatwierdzenie);
+
+        check.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked()) {
+                    Intent intent = new Intent(mContext, PopSzczepienieActivity.class);
+                    ((Activity) mContext).startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+                }
+            }
+
+        });
+
         return listItemView;
     }
+
 }

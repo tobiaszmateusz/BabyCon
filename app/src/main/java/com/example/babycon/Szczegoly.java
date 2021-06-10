@@ -67,6 +67,7 @@ public class Szczegoly extends Activity {
         SzczepieniaListaAdapter szczepieniaAdapter = new SzczepieniaListaAdapter(this, szczepienia);
         ListView listView = (ListView) findViewById(R.id.listview_szczepienia);
         listView.setAdapter(szczepieniaAdapter);
+
     }
 }
 

@@ -8,11 +8,14 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.babycon.model.SzczepieniaLista;
 import com.example.babycon.model.SzczepieniaListaAdapter;
@@ -57,6 +60,9 @@ public class Szczepienia extends Fragment {
     // TODO: Rename and change types and number of parameters
 
     Button szczegoly;
+    TextView Nazwa;
+    TextView Data;
+    TextView Warning;
 
     public static Szczepienia newInstance(String param1, String param2) {
         Szczepienia fragment = new Szczepienia();
@@ -73,6 +79,7 @@ public class Szczepienia extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
 
     }
@@ -92,21 +99,13 @@ public class Szczepienia extends Fragment {
         String imie = results.getString("danedziecka");
         String dataUrodzenia = results.getString("dataurodzenia");
         String idchild = results.getString("idchild");
-    }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.fragment_szczepienia, container, false);
 
-        MainActivity activity = (MainActivity)getActivity();
-        Bundle results = activity.getMyData();
-        String dataUrodzenia = results.getString("dataurodzenia");
-        String idchild = results.getString("idchild");
         SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yy");
         String currentDateandTime = sdf2.format(new Date());
         int dateDifference = (int) getDateDiff(new SimpleDateFormat("MM/dd/yy"), dataUrodzenia, currentDateandTime);
+
 
         // Create an ArrayList of AndroidFlavor objects
 /*        ArrayList<SzczepieniaLista> szczepienia = new ArrayList<SzczepieniaLista>();
@@ -157,21 +156,106 @@ public class Szczepienia extends Fragment {
             if(j%3 == 0){
                 if(Integer.parseInt(name.get(j+1)) / 24 < dateDifference)
                 {
-                    szczepienia.add(new SzczepieniaLista(name.get(j+2) + "\n", "Czas: "+ name.get(j) + "\n\nOpóźnienie!", R.drawable.ic_baseline_help_24));
+                    szczepienia.add(new SzczepieniaLista(name.get(j+2), "\n"+"Czas: "+ name.get(j) + "\n\nOpóźnienie!", R.drawable.ic_baseline_help_24));
 
                 }else
                 {
-                    szczepienia.add(new SzczepieniaLista(name.get(j) + "\n", "Czas: "+ name.get(j) + "\n", R.drawable.ic_baseline_help_24));
+                    szczepienia.add(new SzczepieniaLista(name.get(j+2) + "\n", "Czas: "+ name.get(j) + "\n", R.drawable.ic_baseline_help_24));
 
                 }
             }
         }
 
 
-        SzczepieniaListaAdapter_Tick szczepieniaAdapter = new SzczepieniaListaAdapter_Tick(getActivity(), szczepienia);
+        SzczepieniaListaAdapter_Tick szczepieniaAdapter = new SzczepieniaListaAdapter_Tick(getActivity(), szczepienia, idchild);
         ListView listView = view.findViewById(R.id.listview_szczepienia2);
         listView.setAdapter(szczepieniaAdapter);
 
+        Nazwa = getView().findViewById(R.id.eNazwa);
+        Data = getView().findViewById(R.id.eData);
+        Warning = getView().findViewById(R.id.eWarning);
+
+        int zaile = Integer.parseInt(name.get(1));
+        String dataSzczepiionki = null;
+        int dniurodzenia = Integer.parseInt(dnitwo(dataUrodzenia));
+        int miesiacurodzenia = Integer.parseInt(miesiactwo(dataUrodzenia));
+        int rokurodzenia = Integer.parseInt(roktwo(dataUrodzenia));
+        int dniszczepiomki = dniurodzenia;
+        int miesiacszczepiomki = miesiacurodzenia;
+        int rokszczepionki = rokurodzenia;
+        for (int j = 0; j < zaile/24; j++) {
+            dniszczepiomki = dniszczepiomki + 1;
+            if (dniszczepiomki == 28 && miesiacszczepiomki == 2)
+            {
+                miesiacszczepiomki = 3;
+            }
+            if (dniszczepiomki == 30 && miesiacszczepiomki == 4)
+            {
+                miesiacszczepiomki = 5;
+            }
+            if (dniszczepiomki == 30 && miesiacszczepiomki == 6)
+            {
+                miesiacszczepiomki = 7;
+            }
+            if (dniszczepiomki == 30 && miesiacszczepiomki == 9)
+            {
+                miesiacszczepiomki = 10;
+            }
+            if (dniszczepiomki == 30 && miesiacszczepiomki == 11)
+            {
+                miesiacszczepiomki = 11;
+            }
+            if (dniszczepiomki == 31 && miesiacszczepiomki == 1)
+            {
+                miesiacszczepiomki = 2;
+            }
+            if (dniszczepiomki == 31 && miesiacszczepiomki == 3)
+            {
+                miesiacszczepiomki = 4;
+            }
+            if (dniszczepiomki == 31 && miesiacszczepiomki == 5)
+            {
+                miesiacszczepiomki = 6;
+            }
+            if (dniszczepiomki == 31 && miesiacszczepiomki == 7)
+            {
+                miesiacszczepiomki = 8;
+            }
+            if (dniszczepiomki == 31 && miesiacszczepiomki == 8)
+            {
+                miesiacszczepiomki = 9;
+            }
+            if (dniszczepiomki == 31 && miesiacszczepiomki == 10)
+            {
+                miesiacszczepiomki = 11;
+            }
+            if (dniszczepiomki == 31 && miesiacszczepiomki == 12)
+            {
+                miesiacszczepiomki = 1;
+                rokszczepionki = rokszczepionki + 1;
+            }
+        }
+
+        dataSzczepiionki = dniszczepiomki + "/" + miesiacszczepiomki + "/" + rokszczepionki;
+        String dataSzczepiionki2 = miesiacszczepiomki + "/" + dniszczepiomki + "/" + rokszczepionki;
+
+        int dateDifference2 = (int) getDateDiff(new SimpleDateFormat("MM/dd/yy"), currentDateandTime, dataSzczepiionki2);
+
+
+        Data.setText(dataSzczepiionki);
+        Nazwa.setText(name.get(2));
+
+        if (dateDifference2 < 0) {
+            Warning.setText("Opóźnienie " + dateDifference2 + " DNI");
+        }
+
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view  = inflater.inflate(R.layout.fragment_szczepienia, container, false);
 
 
         return view;
@@ -185,5 +269,20 @@ public class Szczepienia extends Fragment {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public String dnitwo(String str) {
+        String[] temp = str.split("/");
+        return temp[1];
+    }
+
+    public String miesiactwo(String str) {
+        String[] temp = str.split("/");
+        return temp[0];
+    }
+
+    public String roktwo(String str) {
+        String[] temp = str.split("/");
+        return temp[2];
     }
 }

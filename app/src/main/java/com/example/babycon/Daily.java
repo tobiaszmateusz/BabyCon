@@ -162,10 +162,12 @@ public class Daily extends Fragment {
             }
         }
 
-/*        if (name != null)
+        if (name != null)
         {
             wzrost=name.get(0);
-        }*/
+        }else{
+            wzrost="999";
+        }
 
         fabb = getView().findViewById(R.id.fab);
         fabb.setOnClickListener(new View.OnClickListener() {
