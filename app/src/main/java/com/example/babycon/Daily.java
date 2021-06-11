@@ -59,6 +59,7 @@ public class Daily extends Fragment {
     Button dodaj;
     Button fabb;
     String wzrost = null;
+    String waga = null;
     private DataBaseHelper myDb;
 
     @Override
@@ -126,7 +127,7 @@ public class Daily extends Fragment {
             }
         });
 
-/*        setData();*/
+        /*        setData();*/
 
 
         myDb = new DataBaseHelper(getActivity());
@@ -162,11 +163,13 @@ public class Daily extends Fragment {
             }
         }
 
-        if (name != null)
+        if (name.size() == 0)
         {
-            wzrost=name.get(0);
-        }else{
             wzrost="999";
+            waga="999";
+        }else{
+            wzrost=name.get(name.size()-6);
+            waga=name.get(name.size()-2);
         }
 
         fabb = getView().findViewById(R.id.fab);
@@ -177,9 +180,11 @@ public class Daily extends Fragment {
                 intent.putExtra("wiek",dateDifference);
                 intent.putExtra("wzrost",wzrost);
                 intent.putExtra("plec",plec);
+                intent.putExtra("waga",waga);
                 startActivity(intent);
             }
         });
+
 
 
         // Create an {@link AndroidFlavorAdapter}, whose data source is a list of

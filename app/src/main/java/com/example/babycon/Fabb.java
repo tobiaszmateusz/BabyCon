@@ -4,46 +4,53 @@ package com.example.babycon;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 
 public class Fabb extends Activity {
 
-
-
-
+    TextView centylwzrost;
+    TextView centylwaga;
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fab);
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
-        int wiek_=(int) b.get("wiek");
-        String wzrost_=(String) b.get("wzrost");
-        String plec=(String) b.get("plec");
-        int wzrost__=Integer.parseInt(wzrost_);
-        int mont=checkMonth(wiek_);
+        int wiek = (int) b.get("wiek");
+        String wzrost = (String) b.get("wzrost");
+        String plec = (String) b.get("plec");
+        String waga = (String) b.get("waga");
+        int wzrost__ = Integer.parseInt(wzrost);
+        int waga__ = Integer.parseInt(waga);
+        int month = checkMonth(wiek);
         int plecnumber = 999;
 
+        centylwzrost = (TextView)findViewById(R.id.centylwzrost);
+        centylwaga = (TextView)findViewById(R.id.centylwaga);
         String comp = new String("chłopak");
 
 // Evaluates to true
-        if(comp.equals(plec))
-        {
-            plecnumber=0;
-        }else{plecnumber=1;}
+        if (comp.equals(plec)) {
+            plecnumber = 0;
+        } else {
+            plecnumber = 1;
+        }
 
 
-
+        int[] centyl = siatkaCentyl(wzrost__, waga__, month, plecnumber);
+        int[] zwroconycentyl=zwrocCentyl(centyl);
+        centylwzrost.setText("Twoje dziecko jest w: "+Integer.toString(zwroconycentyl[0])+ " centylu wzrostu");
+        centylwaga.setText("Twoje dziecko jest w: "+Integer.toString(zwroconycentyl[1])+ " centylu wagi");
     }
-    public int checkMonth(int wiek)
-    {
-        return wiek/30;
+
+    public int checkMonth(int wiek) {
+        return wiek / 30;
     }
 
-    public int siatkaCentyl(int wzost,int waga, int wiek, int plecnumber)
-    {
+    public int[] siatkaCentyl(int wzrost_, int waga, int month, int plecnumber) {
 
-        int[][] siatkacentylwzrostCH = new int[23][7];
+        int[][] siatkacentylwzrostCH = new int[25][7];
         siatkacentylwzrostCH[0][0] = 46;
         siatkacentylwzrostCH[0][1] = 48;
         siatkacentylwzrostCH[0][2] = 49;
@@ -245,7 +252,7 @@ public class Fabb extends Activity {
         siatkacentylwzrostCH[24][6] = 94;
 /////////////////////////////////////////////////
 
-        int[][] siatkacentylwzrostDZ = new int[23][7];
+        int[][] siatkacentylwzrostDZ = new int[25][7];
         siatkacentylwzrostDZ[0][0] = 46;
         siatkacentylwzrostDZ[0][1] = 47;
         siatkacentylwzrostDZ[0][2] = 48;
@@ -447,7 +454,7 @@ public class Fabb extends Activity {
         siatkacentylwzrostDZ[24][6] = 93;
 
         ///////////////////////////////////////
-        double[][] siatkacentylwagaCH = new double[23][7];
+        double[][] siatkacentylwagaCH = new double[25][7];
         siatkacentylwagaCH[0][0] = 2.5;
         siatkacentylwagaCH[0][1] = 2.9;
         siatkacentylwagaCH[0][2] = 3.0;
@@ -649,7 +656,7 @@ public class Fabb extends Activity {
         siatkacentylwagaCH[24][6] = 15.1;
 
         ///////////////////////////////////////
-        double[][] siatkacentylwagaDZ = new double[23][7];
+        double[][] siatkacentylwagaDZ = new double[25][7];
         siatkacentylwagaDZ[0][0] = 2.4;
         siatkacentylwagaDZ[0][1] = 2.8;
         siatkacentylwagaDZ[0][2] = 2.9;
@@ -850,17 +857,75 @@ public class Fabb extends Activity {
         siatkacentylwagaDZ[24][5] = 13.6;
         siatkacentylwagaDZ[24][6] = 14.6;
 
-/*        if(plecnumber==0)
-        {
-            for(int i=0; i<siatkacentylwzrostCH[wiek].length;i++)
-            {
-                siatkacentylwzrostCH[wiek][];
+
+        int centylwzrost = 0;
+        int centylwaga = 0;
+        int[] centyl = new int[2];
+        if (plecnumber == 0) {
+
+            for (int i = 0; i < 7; i++) {
+                if (siatkacentylwzrostCH[month][i] <= wzrost_) {
+                    centylwzrost = i;
+                    centyl[0] = centylwzrost;
+                }
             }
-        }else
-            for(int i=0; i<siatkacentylwzrostCH[wiek].length;i++)
+            for (int j = 0; j < 7; j++) {
+                if (siatkacentylwagaCH[month][j] <= waga) {
+                    centylwaga = j;
+                    centyl[1] = centylwaga;
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < 7; i++) {
+                if (siatkacentylwzrostDZ[month][i] <= wzrost_) {
+                    centylwzrost = i;
+                    centyl[0] = centylwzrost;
+                }
+            }
+            for (int j = 0; j < 7; j++) {
+                if (siatkacentylwagaDZ[month][j] <= waga) {
+                    centylwaga = j;
+                    centyl[1] = centylwaga;
+                }
+            }
+        }
+        return centyl;
+    }
+    public int[] zwrocCentyl(int[] centyl)
+    {
+        int zwroconycentyl[]=new int[2];
+        for(int i=0; i<centyl.length; i++)
+        {
+            if(centyl[i]==0)
             {
-                siatkacentylwzrostDZ[wiek][];
-            }*/
-        return 2;
+                zwroconycentyl[i]=3;
+            }
+            if(centyl[i]==1)
+            {
+                zwroconycentyl[i]=10;
+            }
+            if(centyl[i]==2)
+            {
+                zwroconycentyl[i]=25;
+            }
+            if(centyl[i]==3)
+            {
+                zwroconycentyl[i]=50;
+            }
+            if(centyl[i]==4)
+            {
+                zwroconycentyl[i]=75;
+            }
+            if(centyl[i]==5)
+            {
+                zwroconycentyl[i]=90;
+            }
+            if(centyl[i]==6)
+            {
+                zwroconycentyl[i]=97;
+            }
+        }
+        return zwroconycentyl;
     }
 }
