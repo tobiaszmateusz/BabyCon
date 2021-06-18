@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/shape"
+    tools:context=".FirstTime">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/zatwierdz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="35dp"
+            android:height="20dp"
+            android:background="@drawable/shape2"
+            android:text="Zatwierdź"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/wyjdz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/shape2"
+            android:height="20dp"
+            android:text="Wyjście"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+
+            android:layout_weight="0.8"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:gravity=""
+            android:padding="5dp"
+            android:text="Data : "
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+             />
+
+        <TextView
+            android:id="@+id/data2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@+id/data"
+            android:layout_weight="0.8"
+            android:clickable="true"
+            android:gravity=""
+            android:hint="Wybierz date"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="20dp"
+             />
+
+        <TextView
+            android:id="@+id/czynnosc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+
+            android:layout_weight="0.8"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="20dp"
+            android:gravity=""
+            android:padding="5dp"
+            android:text="Krok milowy : "
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
+        <Spinner
+            android:id="@+id/krok"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="100dp"
+            android:layout_toEndOf="@+id/czynnosc"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity=""
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

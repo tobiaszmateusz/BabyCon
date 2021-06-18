@@ -1,7 +1,6 @@
 package com.example.babycon.ui.main;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -10,7 +9,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.babycon.Daily;
-import com.example.babycon.DataBaseHelper;
 import com.example.babycon.Notatki;
 import com.example.babycon.R;
 import com.example.babycon.Szczepienia;
@@ -41,7 +39,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return new Daily();
             case 1:
                 return new Szczepienia();
-            case 3:
+            case 2:
                 return new Notatki();
             default:
                 return new PlaceholderFragment();

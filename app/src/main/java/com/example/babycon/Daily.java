@@ -127,8 +127,6 @@ public class Daily extends Fragment {
             }
         });
 
-        /*        setData();*/
-
 
         myDb = new DataBaseHelper(getActivity());
         Cursor id_child = myDb.getWpisy(idchild);
@@ -185,14 +183,7 @@ public class Daily extends Fragment {
             }
         });
 
-
-
-        // Create an {@link AndroidFlavorAdapter}, whose data source is a list of
-        // {@link AndroidFlavor}s. The adapter knows how to create list item views for each item
-        // in the list.
         WpisyListaAdapter wpisyAdapter = new WpisyListaAdapter(getActivity(), wpisy);
-
-        // Get a reference to the ListView, and attach the adapter to the listView.
         ListView listView = view.findViewById(R.id.listview_wpisy);
         listView.setAdapter(wpisyAdapter);
     }
