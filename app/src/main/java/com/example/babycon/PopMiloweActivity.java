@@ -37,7 +37,7 @@ public class PopMiloweActivity extends FragmentActivity implements DatePickerDia
     TextView text;
     TextView textView;
     Spinner spiner;
-    String[] value = {"Wybierz krok","1 Liga Mężczyzn","2 Liga Mężczyzn","3 Liga Mężczyzn","Rozgrywki Amatorskie"};
+    String[] value = {"Wybierz krok","1 KROK","2 KROK","3 KROK","4 KROK"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class PopMiloweActivity extends FragmentActivity implements DatePickerDia
         DataBaseHelper myDB;
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        String idch = extras.getString("idch");
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -159,12 +160,10 @@ public class PopMiloweActivity extends FragmentActivity implements DatePickerDia
             @Override
             public void onClick(View v) {
                 String wData = text.getText().toString();
+                String krok = spiner.getSelectedItem().toString();
+                myDB.addMilowy(idch, wData, krok);
 
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",wData);
-                setResult(Activity.RESULT_OK,returnIntent);
                 finish();
-
             }
         });
 

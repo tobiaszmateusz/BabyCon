@@ -16,6 +16,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String TABLE_NAME3 = "SZCZEPIENIA";
     private static final String TABLE_NAME4 = "BABY_POMIARY";
     private static final String TABLE_NAME5 = "BABY_SZCZEPIENIA";
+    private static final String TABLE_NAME6 = "MILOWE";
     private static final String COL_1 = "ID";
     private static final String COL_2 = "USERNAME";
     private static final String COL_3 = "EMAIL";
@@ -35,6 +36,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String COL_17 = "ID_SZCZEPIENIA";
     private static final String COL_18 = "TERMIN";
     private static final String COL_19 = "POTWIERDZENIE";
+    private static final String COL_20 = "NAZWA";
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -47,6 +49,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME3 + "(ID_SZCZEPIENIA INTEGER PRIMARY KEY, NAZWA TEXT, DATA TEXT, NASZA_DATA TEXT, TERMIN INTEGER, OPIS TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME4 + "(ID_DATA INTEGER PRIMARY KEY AUTOINCREMENT , BABY_ID INTEGER, DATA TEXT, OBWOD_GL INTEGER, OBWOD_KLATKI INTEGER, WAGA INTEGER, WZROST INTEGER, NOTATKA TEXT, FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID) )");
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME5 + "(ID_CHSZ INTEGER PRIMARY KEY AUTOINCREMENT, BABY_ID INTEGER, ID_SZCZEPIENIA INTEGER, POTWIERDZENIE INTEGER, DATA TEXT, FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID), FOREIGN KEY(ID_SZCZEPIENIA) REFERENCES SZCZEPIENIA(ID_SZCZEPIENIA))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME6 + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, BABY_ID INTEGER, NAZWA TEXT, DATA TEXT, FOREIGN KEY(BABY_ID) REFERENCES BABY_DATA(BABY_ID))");
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -55,6 +59,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME3);
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME4);
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME5);
+        db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME6);
         onCreate(db);
     }
 
@@ -164,7 +169,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     public Cursor getSzczepionkiCH(String ID){
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query2 = "SELECT NAZWA, s.DATA, TERMIN FROM BABY_SZCZEPIENIA b LEFT OUTER JOIN SZCZEPIENIA s on B.ID_SZCZEPIENIA = S.ID_SZCZEPIENIA WHERE BABY_ID = "+ ID + " AND B.DATA = "+ "\"null\"" +" ORDER BY TERMIN ASC";
+        String Query2 = "SELECT NAZWA, s.DATA, TERMIN, POTWIERDZENIE FROM BABY_SZCZEPIENIA b LEFT OUTER JOIN SZCZEPIENIA s on B.ID_SZCZEPIENIA = S.ID_SZCZEPIENIA WHERE BABY_ID = "+ ID + " AND B.DATA = "+ "\"null\"" +" ORDER BY TERMIN ASC";
         Cursor cursor = db.rawQuery(Query2, null);
         return cursor;
     }
@@ -222,4 +227,34 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(Query2, null);
         return cursor;
     }
+
+    public boolean addMilowy(String idch, String data, String nazwa){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COL_10 , idch);
+        values.put(COL_11 , data);
+        values.put(COL_20 , nazwa);
+
+        long result = db.insert(TABLE_NAME6 , null , values);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public Cursor getMilowe(String idch){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query2 = "SELECT * FROM MILOWE  WHERE BABY_ID = "+ idch;
+        Cursor cursor = db.rawQuery(Query2, null);
+        return cursor;
+    }
+
+    public Cursor getSzczepionkiWyk(String idch){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "SELECT POTWIERDZENIE, NAZWA FROM BABY_SZCZEPIENIA b LEFT OUTER JOIN SZCZEPIENIA s on B.ID_SZCZEPIENIA = S.ID_SZCZEPIENIA WHERE BABY_ID = "+ idch + " AND POTWIERDZENIE != \"NULL\"";
+        Cursor cursor = db.rawQuery(Query, null);
+        return cursor;
+    }
+
 }

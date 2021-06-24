@@ -6,6 +6,5 @@
     android:layout_height="match_parent"
     android:background="@color/pink3"
     android:layout_centerVertical="true"
-    android:textSize="16dp"
-    android:textColor="@color/white">
+    android:textSize="16dp">
 </TextView>

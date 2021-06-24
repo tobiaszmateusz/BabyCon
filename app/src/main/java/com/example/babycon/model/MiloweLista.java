@@ -1,6 +1,6 @@
 package com.example.babycon.model;
 
-public class SzczepieniaLista {
+public class MiloweLista {
 
 
     // Name of the Android version (e.g. Gingerbread, Honeycomb, Ice Cream Sandwich)
@@ -19,7 +19,7 @@ public class SzczepieniaLista {
      * @param vNumber is the corresponding Android version number (e.g. 2.3-2.7)
      * @param image is drawable reference ID that corresponds to the Android version
      * */
-    public SzczepieniaLista(String vName, String vNumber, int imageResourceId)
+    public MiloweLista(String vName, String vNumber, int imageResourceId)
     {
         mVersionName = vName;
         mVersionNumber = vNumber;

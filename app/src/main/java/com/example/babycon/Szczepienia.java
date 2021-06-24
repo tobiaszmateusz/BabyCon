@@ -60,6 +60,7 @@ public class Szczepienia extends Fragment {
     // TODO: Rename and change types and number of parameters
 
     Button szczegoly;
+    Button wykonane;
     TextView Nazwa;
     TextView Data;
     TextView Warning;
@@ -94,6 +95,8 @@ public class Szczepienia extends Fragment {
             }
         });
 
+
+
         MainActivity activity = (MainActivity)getActivity();
         Bundle results = activity.getMyData();
         String imie = results.getString("danedziecka");
@@ -101,6 +104,15 @@ public class Szczepienia extends Fragment {
         String idchild = results.getString("idchild");
 
 
+        wykonane = getView().findViewById(R.id.wykonane);
+        wykonane.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getContext(), Wykonane.class);
+                intent.putExtra("idchild", idchild);
+                startActivity(intent);
+            }
+        });
 
         SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yy");
         String currentDateandTime = sdf2.format(new Date());
@@ -153,16 +165,16 @@ public class Szczepienia extends Fragment {
 
 
         for (int j = 0; j < name.size(); j++){
-            if(j%3 == 0){
-                if(Integer.parseInt(name.get(j+1)) / 24 < dateDifference)
-                {
-                    szczepienia.add(new SzczepieniaLista(name.get(j+2), "\n"+"Czas: "+ name.get(j) + "\n\nOpóźnienie!", R.drawable.ic_baseline_help_24));
+            if(j%4 == 0){
+                if(name.get(j+2) == null) {
+                    if (Integer.parseInt(name.get(j + 1)) / 24 < dateDifference) {
+                        szczepienia.add(new SzczepieniaLista(name.get(j + 3), "\n" + "Czas: " + name.get(j) + "\n\nOpóźnienie!", R.drawable.ic_baseline_help_24));
 
-                }else
-                {
-                    szczepienia.add(new SzczepieniaLista(name.get(j+2) + "\n", "Czas: "+ name.get(j) + "\n", R.drawable.ic_baseline_help_24));
+                    } else {
+                        szczepienia.add(new SzczepieniaLista(name.get(j + 3),  "\n" + "Czas: " + name.get(j) + "\n", R.drawable.ic_baseline_help_24));
 
-                }
+                    }
+                }else{}
             }
         }
 

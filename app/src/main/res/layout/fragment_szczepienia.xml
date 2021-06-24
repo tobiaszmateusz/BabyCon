@@ -18,6 +18,16 @@
         android:layout_marginBottom="20dp"
         android:text="Szczegóły" />
 
+    <Button
+        android:id="@+id/wykonane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Wykonane" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="334dp"
         android:layout_height="151dp"
