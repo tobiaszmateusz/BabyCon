@@ -2,7 +2,10 @@ package com.example.babycon;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,7 +26,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class PopSzczepienieActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener{
 
@@ -41,7 +46,8 @@ public class PopSzczepienieActivity extends FragmentActivity implements DatePick
         DataBaseHelper myDB;
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-
+        String idch = extras.getString("idch");
+        String nazwa = extras.getString("nazwa");
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -60,20 +66,33 @@ public class PopSzczepienieActivity extends FragmentActivity implements DatePick
         wyjdz = findViewById(R.id.wyjdz);
         text = (TextView) findViewById(R.id.data2);
         myDB = new DataBaseHelper(this);
+        String idszczepienia = null;
+
+        Cursor nazwaszczepionki = myDB.getNazwa(nazwa);
+        ArrayList<HashMap<String, String>> maplist = new ArrayList<HashMap<String, String>>();
+
+        if (nazwaszczepionki.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                for(int i=0; i<nazwaszczepionki.getColumnCount();i++)
+                {
+                    map.put(nazwaszczepionki.getColumnName(i), nazwaszczepionki.getString(i));
+                    idszczepienia = nazwaszczepionki.getString(i);
+                }
+
+                maplist.add(map);
+            } while (nazwaszczepionki.moveToNext());
+        }
 
 
-
+        String finalIdszczepienia = idszczepienia;
 
         zatw.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 String wData = text.getText().toString();
-
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",wData);
-                setResult(Activity.RESULT_OK,returnIntent);
+                myDB.accSzczepienia(idch, wData, finalIdszczepienia);
                 finish();
-
             }
         });
 

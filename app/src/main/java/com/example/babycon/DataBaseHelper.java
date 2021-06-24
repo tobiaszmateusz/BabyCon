@@ -34,6 +34,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String COL_16 = "WZROST";
     private static final String COL_17 = "ID_SZCZEPIENIA";
     private static final String COL_18 = "TERMIN";
+    private static final String COL_19 = "POTWIERDZENIE";
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -202,5 +203,23 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         else
             return true;
 
+    }
+    public boolean accSzczepienia(String idch, String data, String idszcz){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_19,data);
+        long result = db.update(TABLE_NAME5 , values , "BABY_ID = ? AND ID_SZCZEPIENIA = ?", new String[]{idch, idszcz});
+
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public Cursor getNazwa(String nazwasz){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query2 = "SELECT ID_SZCZEPIENIA FROM SZCZEPIENIA  WHERE NAZWA = \""+nazwasz+ "\"";
+        Cursor cursor = db.rawQuery(Query2, null);
+        return cursor;
     }
 }

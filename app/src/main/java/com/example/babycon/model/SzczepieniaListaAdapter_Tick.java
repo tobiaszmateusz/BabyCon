@@ -33,20 +33,22 @@ public class SzczepieniaListaAdapter_Tick extends ArrayAdapter<SzczepieniaLista>
     Context mContext;
     private static final String LOG_TAG = SzczepieniaListaAdapter_Tick.class.getSimpleName();
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+    private static String idCH = null;
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
      * The context is used to inflate the layout file, and the list is the data we want
      * to populate into the lists.
      *
      * @param context        The current context. Used to inflate the layout file.
-     * @param androidFlavors A List of AndroidFlavor objects to display in a list
+     * @param szczepienia A List of AndroidFlavor objects to display in a list
      */
-    public SzczepieniaListaAdapter_Tick(Activity context, ArrayList<SzczepieniaLista> androidFlavors, String idchild) {
+    public SzczepieniaListaAdapter_Tick(Activity context, ArrayList<SzczepieniaLista> szczepienia, String idchild) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
         // going to use this second argument, so it can be any value. Here, we used 0.
-        super(context, 0, androidFlavors);
+        super(context, 0, szczepienia);
+        this.idCH = idchild;
     }
 
     /**
@@ -68,27 +70,26 @@ public class SzczepieniaListaAdapter_Tick extends ArrayAdapter<SzczepieniaLista>
         }
 
         mContext = parent.getContext();
-
         // Get the {@link AndroidFlavor} object located at this position in the list
-        SzczepieniaLista currentAndroidFlavor = getItem(position);
+        SzczepieniaLista currentszczepionka = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.version_name);
         // Get the version name from the current AndroidFlavor object and
         // set this text on the name TextView
-        nameTextView.setText(currentAndroidFlavor.getVersionName());
+        nameTextView.setText(currentszczepionka.getVersionName());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView numberTextView = (TextView) listItemView.findViewById(R.id.version_number);
         // Get the version number from the current AndroidFlavor object and
         // set this text on the number TextView
-        numberTextView.setText(currentAndroidFlavor.getVersionNumber());
+        numberTextView.setText(currentszczepionka.getVersionNumber());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
         ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
         // Get the image resource ID from the current AndroidFlavor object and
         // set the image to iconView
-        iconView.setImageResource(currentAndroidFlavor.getImageResourceId());
+        iconView.setImageResource(currentszczepionka.getImageResourceId());
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
@@ -101,10 +102,11 @@ public class SzczepieniaListaAdapter_Tick extends ArrayAdapter<SzczepieniaLista>
             public void onClick(View v) {
                 if (((CheckBox) v).isChecked()) {
                     Intent intent = new Intent(mContext, PopSzczepienieActivity.class);
-                    ((Activity) mContext).startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE);
+                    intent.putExtra("idch", idCH);
+                    intent.putExtra("nazwa", currentszczepionka.getVersionName());
+                    mContext.startActivity(intent);
                 }
             }
-
         });
 
         return listItemView;
